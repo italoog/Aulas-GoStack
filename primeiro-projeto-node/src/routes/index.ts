@@ -2,8 +2,15 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/', (request, response) =>
-  response.json({ message: 'Hello Word' }),
-);
+router.post('/users', (request, response) => {
+  const { name, email } = request.body;
+
+  const user = {
+    name,
+    email,
+  };
+
+  return response.json(user);
+});
 
 export default router;
