@@ -2,8 +2,10 @@
 import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
-
 import uploadConfig from '../config/upload';
+
+import AppError from '../errors/AppError';
+
 import User from '../models/Users';
 
 interface Request {
@@ -18,7 +20,7 @@ class UpdateUserAvatarService {
     const user = await usersRepository.findOne(user_id);
 
     if (!user) {
-      throw new Error('Only authenticated user can avatar.');
+      throw new AppError('Only authenticated user can avatar.', 401);
     }
 
     if (user.avatar) {
